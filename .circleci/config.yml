@@ -75,7 +75,7 @@ jobs:
           keys: [frontend-build]
       - run:
           name: Check for security vulnerabilities frontend
-          working_directory: ./frontend
+          
           command: |
             cd frontend
             npm install
@@ -94,7 +94,7 @@ jobs:
           keys: [backend-build]
       - run:
           name: Check for security vulnerabilities backend
-          working_directory: ./backend
+          
           command: |
             cd backend
             npm install
