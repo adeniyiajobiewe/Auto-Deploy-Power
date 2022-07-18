@@ -147,10 +147,10 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            aws ec2 describe-instances \
+            echo (aws ec2 describe-instances \
             --filters "Name=tag:ThisInstance, Values=UdaBackEnd" \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> .circleci/ansible/inventory.txt 
+            --output text) >> .circleci/ansible/inventory.txt 
             
     
       - persist_to_workspace:
@@ -161,6 +161,28 @@ jobs:
       - destroy-environment:
           id: ${CIRCLE_WORKFLOW_ID:0:7}     
 
+  configure-infrastructure:
+    docker:
+      - image: python3.7-alpine3.16
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "4b:db:62:12:c6:1f:60:67:6d:6a:89:3a:14:44:52:14"
+
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update --no-cache tar gzip ansible awscli
+
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Configure server
+          command: |
+            # Your code here
+            exit 1
+      # Here's where you will add some code to rollback on failure
 
 
 workflows:
