@@ -164,7 +164,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.7-alpine3.16
     steps:
       - checkout
       - add_ssh_keys:
@@ -174,15 +174,15 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache tar gzip ansible 
-            apk add --no-cache \
-            python3 \
-            py3-pip \
-            && pip3 install --upgrade pip \
-            && pip3 install --no-cache-dir \
-            awscli \
-            && rm -rf /var/cache/apk/*
-            
+            apk add --update --no-cache tar gzip ansible aws-cli
+            # apk add --no-cache \
+            # python3 \
+            # py3-pip \
+            # && pip3 install --upgrade pip \
+            # && pip3 install --no-cache-dir \
+            # awscli \
+            # && rm -rf /var/cache/apk/*
+
       - attach_workspace:
           at: ~/
       - run:
@@ -209,7 +209,7 @@ workflows:
       - scan-frontend:
           requires: [build-frontend]
       - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          requires: [test-frontend, test-backend]
       -  configure-infrastructure:
           requires: [deploy-infrastructure]
       
