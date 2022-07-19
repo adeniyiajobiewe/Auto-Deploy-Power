@@ -4,7 +4,7 @@
   apt:
     upgrade: yes
     update_cache: yes
-    cacahe_valid_time: 86400
+    cache_valid_time: 86400
 
 - name: remove unwanted dependencies  # sudo apt autoremove
   become: yes
