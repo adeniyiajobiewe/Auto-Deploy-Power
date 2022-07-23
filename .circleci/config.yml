@@ -308,16 +308,16 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update --no-cache curl aws-cli 
-      # - attach_workspace:
-      #     at: ~/
+      - attach_workspace:
+          at: ~/
       - run:
           name: Backend smoke test
           command: |
-            # export BACKEND_IP-$(tail ~/project/.circleci/ansible/inventory.txt)
-            export BACKEND_IP=$(aws ec2 describe-instances \
-            --filters "Name=tag:ThisInstance, Values=UdaBackEnd" \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text)
+            export BACKEND_IP-$(tail ~/project/.circleci/ansible/inventory.txt)
+            # export BACKEND_IP=$(aws ec2 describe-instances \
+            # --filters "Name=tag:ThisInstance, Values=UdaBackEnd" \
+            # --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            # --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
