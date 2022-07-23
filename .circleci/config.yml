@@ -173,8 +173,8 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
 
-      - destroy-environment:
-          id: ${CIRCLE_WORKFLOW_ID:0:7}     
+      # - destroy-environment:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7}     
 
   configure-infrastructure:
     docker:
@@ -198,8 +198,8 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
       
-      - destroy-environment:
-          id: ${CIRCLE_WORKFLOW_ID:0:7} 
+      # - destroy-environment:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7} 
 
   run-migrations:
     docker:
@@ -262,10 +262,10 @@ jobs:
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-      - destroy-environment:
-          id: ${CIRCLE_WORKFLOW_ID:0:7}   
-      - revert-migrations:
-          id: ${CIRCLE_WORKFLOW_ID:0:7} 
+      # - destroy-environment:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7}   
+      # - revert-migrations:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7} 
 
   deploy-backend:
     docker:
@@ -296,10 +296,10 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-      - destroy-environment:
-          id: ${CIRCLE_WORKFLOW_ID:0:7}   
-      - revert-migrations:
-          id: ${CIRCLE_WORKFLOW_ID:0:7} 
+      # - destroy-environment:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7}   
+      # - revert-migrations:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7} 
 
   smoke-test:
     docker:
@@ -340,10 +340,10 @@ jobs:
             else
               return 1
             fi
-      - destroy-environment:
-          id: ${CIRCLE_WORKFLOW_ID:0:7}   
-      - revert-migrations:
-          id: ${CIRCLE_WORKFLOW_ID:0:7} 
+      # - destroy-environment:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7}   
+      # - revert-migrations:
+      #     id: ${CIRCLE_WORKFLOW_ID:0:7} 
      
 
 
