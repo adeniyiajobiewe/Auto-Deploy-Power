@@ -25,5 +25,8 @@
 - name: Start the app
   become: yes
   shell: |
-    pm2 delete all
-    pm2 start npm -- start  
+    npm install
+    # pm2 stop default
+    sudo pm2 start npm -- start
+    # pm2 delete all
+    # pm2 start npm -- start  
