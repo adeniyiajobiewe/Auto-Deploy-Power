@@ -313,7 +313,7 @@ jobs:
       - run:
           name: Backend smoke test
           command: |
-            export BACKEND_IP-$(tail -n 1 ~/project/.circleci/ansible/inventory.txt)
+            export BACKEND_IP=$(tail -n 1 ~/project/.circleci/ansible/inventory.txt)
             # export BACKEND_IP=$(aws ec2 describe-instances \
             # --filters "Name=tag:ThisInstance, Values=UdaBackEnd" \
             # --query 'Reservations[*].Instances[*].PublicIpAddress' \
