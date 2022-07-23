@@ -16,7 +16,7 @@
     production: yes
 
 - name: extract artifact
-  become: yes:
+  become: yes
   unarchive: 
     src: files/artifact.tar.gz
     dest: .
