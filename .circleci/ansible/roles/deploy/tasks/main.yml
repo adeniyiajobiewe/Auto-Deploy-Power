@@ -42,13 +42,14 @@
 - name: "copy artifact to ec2"
   become: yes
   synchronize:
-    src: ~/project/artifact.tar.gz
+    src: files/artifact.tar.gz
     dest: /home/ubuntu
     recursive: true
 
 - name: "extract artifact"
+  become: yes
   unarchive:
-    src: ~/project/artifact.tar.gz
+    src: files/artifact.tar.gz
     dest: /home/ubuntu
 
 
