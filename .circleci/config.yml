@@ -311,7 +311,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache curl aws-cli 
+            apk add --update --no-cache curl aws-cli npm nodejs
             # sudo apt update
             # sudo apt install -y tar gzip curl
             # sudo apt install -y awscli
