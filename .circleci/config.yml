@@ -460,10 +460,10 @@ workflows:
   default:
     jobs:
       - build-frontend
-          filters:
+         
            
       - build-backend
-          filters:
+      
            
       - test-frontend:
           requires: [build-frontend]
@@ -482,7 +482,7 @@ workflows:
            filters:
             branches:
               only: [dev-branch]
-              
+
       -  configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
