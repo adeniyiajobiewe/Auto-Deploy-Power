@@ -33,6 +33,9 @@ commands:
               # npm run build
               npm run migrations:revert
             fi
+
+
+
 jobs:
   build-frontend:
     docker:
@@ -479,6 +482,7 @@ jobs:
           id: ${CIRCLE_WORKFLOW_ID:0:7}   
       - revert-migrations:
           id: ${CIRCLE_WORKFLOW_ID:0:7}
+          
 
 workflows:
   default:
@@ -504,10 +508,10 @@ workflows:
           filters:
             branches:
               only: [dev-branch]
-      - add-prometheus-node-exporter:
-          requires: [deploy-infrastructure]
+      # - add-prometheus-node-exporter:
+      #     requires: [deploy-infrastructure]
       -  configure-infrastructure:
-          requires: [add-prometheus-node-exporter]
+          requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
       - deploy-frontend:
