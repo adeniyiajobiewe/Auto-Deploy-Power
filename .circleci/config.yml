@@ -66,7 +66,7 @@ jobs:
           name: Back-end build
           command: |
              cd backend
-             npm install
+             sudo npm install -g npm
              npm run build
              
       - save_cache:
@@ -240,9 +240,10 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm install
+            sudo npm install -g npm
             # npm audit fix --force
             npm run migrations >> migrations.txt
+            cat migrations.txt
       - run:
           name: Send migration results to kvdb
           command: |
