@@ -457,31 +457,31 @@ jobs:
               echo  -------- Cannot Cleanup --------
             fi
 
-  # add-prometheus-node-exporter:
-  #   docker:
-  #     - image: python:3.7-alpine3.16
-  #   steps:
-  #     - checkout
-  #     - add_ssh_keys:
-  #         fingerprints:
-  #           - '0e:42:5c:1a:d1:f6:a5:48:cc:8d:76:24:cf:dd:9d:7c'
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           apk add --update aws-cli tar gzip ansible nodejs npm curl
-  #     - attach_workspace:
-  #         at: ~/
-  #     - run:
-  #         name: Setup prometheus Node Exporter
-  #         command: |
-  #           cd .circleci/ansible
-  #           cat inventory.txt
-  #           ansible-playbook -i inventory.txt node-exporter.yml
+  add-prometheus-node-exporter:
+    docker:
+      - image: python:3.7-alpine3.16
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - '0e:42:5c:1a:d1:f6:a5:48:cc:8d:76:24:cf:dd:9d:7c'
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update aws-cli tar gzip ansible nodejs npm curl
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Setup prometheus Node Exporter
+          command: |
+            cd .circleci/ansible
+            cat inventory.txt
+            ansible-playbook -i inventory.txt node-exporter.yml
 
-  #     - destroy-environment:
-  #         id: ${CIRCLE_WORKFLOW_ID:0:7}   
-  #     - revert-migrations:
-  #         id: ${CIRCLE_WORKFLOW_ID:0:7}
+      - destroy-environment:
+          id: ${CIRCLE_WORKFLOW_ID:0:7}   
+      - revert-migrations:
+          id: ${CIRCLE_WORKFLOW_ID:0:7}
           
 
 workflows:
